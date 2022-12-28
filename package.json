@@ -1,0 +1,25 @@
+{
+  "name": "part3_exercises",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "start": "node index.js",
+    "dev": "nodemon index.js",
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "build:ui": "rm -rf build && cd ../fullstack_open/part2/phonebook/ && npm run build && cp -r build ../../../FULLSTACK_OPEN_BACKEND_EXERCISES",
+    "deploy": "fly deploy",
+    "deploy:full": "npm run build:ui && npm run deploy"
+  },
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "nodemon": "^2.0.20"
+  },
+  "dependencies": {
+    "cors": "^2.8.5",
+    "express": "^4.18.1",
+    "mongoose": "^6.8.1",
+    "morgan": "^1.10.0"
+  }
+}
