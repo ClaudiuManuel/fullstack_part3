@@ -36,7 +36,7 @@ if (argLength < 3) {
         const personNumber = process.argv[4];
         const person = new Person({
           id: Math.random() * 100,
-          name: personName,
+          name: personName,   
           number: personNumber,
         });
 

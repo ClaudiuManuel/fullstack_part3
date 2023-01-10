@@ -1,33 +1,12 @@
+require('dotenv').config()
 const cors = require("cors");
 const express = require("express");
 const app = express();
+const Person = require('./models/Person')
 
 app.use(express.json());
 app.use(cors());
 app.use(express.static("build"));
-
-let persons = [
-  {
-    id: 1,
-    name: "Arto Hellas",
-    number: "040-123456",
-  },
-  {
-    id: 2,
-    name: "Ada Lovelace",
-    number: "39-44-5323523",
-  },
-  {
-    id: 3,
-    name: "Dan Abramov",
-    number: "12-43-234345",
-  },
-  {
-    id: 4,
-    name: "Mary Poppendieck",
-    number: "39-23-6423122",
-  },
-];
 
 app.get("/api/info", (request, response) => {
   let date_ob = new Date();
@@ -37,7 +16,7 @@ app.get("/api/info", (request, response) => {
 });
 
 app.get("/api/persons", (request, response) => {
-  response.json(persons);
+  Person.find({}).then((persons) => response.json(persons));
 });
 
 app.get("/api/persons/:id", (request, response) => {
@@ -67,23 +46,21 @@ app.post("/api/persons", (request, response) => {
     });
   }
 
-  const isNameUnique = persons.every((person) => person.name != body.name);
+  // const isNameUnique = persons.every((person) => person.name != body.name);
 
-  if (!isNameUnique) {
-    return response.status(400).json({ error: "name is already taken" });
-  }
+  // if (!isNameUnique) {
+  //   return response.status(400).json({ error: "name is already taken" });
+  // }
 
-  const newPerson = {
-    id: Math.random() * 100,
+  const newPerson = new Person({
     name: body.name,
     number: body.number,
-  };
+  });
 
-  persons = persons.concat(newPerson);
-  response.json(persons);
+  newPerson.save().then((person) => response.json(person));
 });
 
-const PORT = process.env.PORT || 8080;
+const PORT = process.env.PORT;
 app.listen(PORT, () => {
   console.log(`Server running on port ${PORT}`);
 });
