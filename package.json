@@ -9,11 +9,13 @@
     "test": "echo \"Error: no test specified\" && exit 1",
     "build:ui": "rm -rf build && cd ../fullstack_open/part2/phonebook/ && npm run build && cp -r build ../../../FULLSTACK_OPEN_BACKEND_EXERCISES",
     "deploy": "fly deploy",
-    "deploy:full": "npm run build:ui && npm run deploy"
+    "deploy:full": "npm run build:ui && npm run deploy",
+    "lint": "eslint ."
   },
   "author": "",
   "license": "ISC",
   "devDependencies": {
+    "eslint": "^8.32.0",
     "nodemon": "^2.0.20"
   },
   "dependencies": {
